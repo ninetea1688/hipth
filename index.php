@@ -9,13 +9,14 @@ include("include/config.inc.php") ;
 	<meta charset="utf8">
   <link rel="stylesheet" type="text/css" href="dist/semantic.css">
   <link rel="stylesheet" type="text/css" href="examples/homepage.css">
-
+	<link rel="stylesheet" href="dist/bootstrap.min.css">
   <script src="jquery/jquery.js"></script>
   <script src="dist/semantic.js"></script>
   <script src="examples/homepage.js"></script>
   <script src="ajax.js"></script>
-	</head>	
+	</head>
 	<body>
+	<div class="container-fluid">
 	<!--start menu -->
 		<div class="ui orange inverted menu">
 		  <a class="active item">
@@ -25,39 +26,78 @@ include("include/config.inc.php") ;
 		    <i class="mail icon"></i> ดูประวัติเก่า
 		  </a>
 		    <div class="ui dropdown item">
-			    Dropdown <i class="dropdown icon"></i>
+			    ระบบรายงาน <i class="dropdown icon"></i>
 			    <div class="menu">
-			      <div class="item">Choice 1</div>
-			      <div class="item">Choice 2</div>
-			      <div class="item">Choice 3</div>
+			      <div class="item">รายงานการเข้าดูประวัติ</div>
+			      <div class="item">ประวัติการค้นประวัติผู้ป่วย</div>
+			      <div class="item">รายงานวิเคราะห์การเข้าถึงข้อมูล</div>
 			    </div>
   			</div>
 		  <a class="item">
 		    <i class="user icon"></i> ออกระบบ
-		  </a>  			
-    	</div>  
+		  </a>
+    	</div>
     <!-- end menu -->
+	<!-- start search form -->
+	<div class="panel panel-info">
+		<div class="panel-heading">
+			<strong>ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล</strong>
+		</div>
+    <div class="ui small form">
+			<div class="panel-body">
+			<div class="row">
+				<!-- <div class="field">
+					<i class="search icon"></i>
+						ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล
+					</div> -->
+					<div class="col-md-4">
+						<div class="field ui action left icon input labeled">
+							<i class="search icon"></i>
+								<input type="text" name="cid" placeholder="ระบุ  CID ..." id="pop_id">
+								<a class="ui label">
+									ระบ CID  ......
+								</a>
+						</div>
+					</div>
+				<div class="col-md-4">
+					<div class="field ui action left icon input labeled">
+						<i class="search icon"></i>
+							<input type="text" name="name" placeholder="ระบุชื่อ ..." disabled>
+							<a class="ui label">
+								ระบุชื่อ  ......
+							</a>
+					</div>
+				</div>
+				<div class="col-md-4">
+					<div class="field ui action left icon input labeled">
+						<i class="search icon"></i>
+							<input type="text" name="lname" placeholder="ระบุนามสกุล.." disabled />
+							<a class="ui label">
+								ระบุนามสกุล..
+							</a>
+					</div>
+				</div>
+
+		</div>
+		<p>
+		<div class="row">
+		  <div class="col-md-6 col-md-offset-3">
+				<button type="submit" class="btn btn-info btn-block" onclick="showVisit(pop_id.value)">ค้นหาประวัติ</button>
+			</div>
+		</div>
+
+
+		</div>
+		</div>
+	</div>
+	<!-- end search form -->
 	<!-- start grid -->
 	<div class="ui stackable two column grid">
 	    <div class="two wide column"> <!-- start left grid -->
 	    	<!-- start select box -->
 				<div class="ui form">
-					<div class="field">
-						<?php
-						$sql = "select ovst.vn,ovst.vstdttm 
-						from ovst inner join ovstdx on ovst.vn = ovstdx.vn where ovst.hn = '5923' group by ovst.vn order by ovst.vstdttm desc"  ;
-						$query = mysqli_query($conn,$sql) ;						
-						?>
-						<select name="visitdate" multiple="multiple" style="width:150px;height:100%;overflow-y:hidden" onchange="showDiag(this.value)">
-						<?php
-							while($arr = mysqli_fetch_array($query)){
-						?>
-						    <option value="<?php echo $arr['vn'] ; ?>"><?php echo $arr['vstdttm'] ; ?></option>
-						<?php
-							}
-						?>
-						 </select>		
-					 </div>    	
+					<div id="Visit" class="field">
+					 </div>
 				</div>
 	    	<!-- end select box -->
 	    </div> <!-- end left grid -->
@@ -118,8 +158,9 @@ include("include/config.inc.php") ;
 			    	</div>
 			    </div>
   			</div>
-	    </div> <!-- end rigth grid -->	    
+	    </div> <!-- end rigth grid -->
   	</div>
-  	<!-- end grid -->		 
+  	<!-- end grid -->
+	</div>
 	</body>
 </html>

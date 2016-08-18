@@ -1,20 +1,25 @@
 var xmlHttp;
-function createXMLHttpRequest(){if(window.ActiveXObject){xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");}else if(window.XMLHttpRequest) {xmlHttp=new XMLHttpRequest();}else{alert("ºÃÒÇà«ÍÃì¢Í§·èÒ¹äÁèÊ¹ÑºÊ¹Ø¹¡ÒÃ·Ó§Ò¹¢Í§ AJAX!");}}
+function createXMLHttpRequest(){if(window.ActiveXObject){xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");}else if(window.XMLHttpRequest) {xmlHttp=new XMLHttpRequest();}else{alert("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í§ï¿½ï¿½Ò¹ï¿½ï¿½ï¿½Ê¹ÑºÊ¹Ø¹ï¿½ï¿½Ã·Ó§Ò¹ï¿½Í§ AJAX!");}}
 function RequestFile(strRequest, strDiv) {createXMLHttpRequest();xmlHttp.onreadystatechange=function(){if(xmlHttp.readyState==4){if(xmlHttp.status==200) {document.getElementById(strDiv).innerHTML=xmlHttp.responseText;}}};xmlHttp.open("GET", strRequest,true);xmlHttp.send(null);}
 
 function AHref(url){window.location.replace(url);}
-function confirmDelete(path){var drop = confirm("â»Ã´Â×¹ÂÑ¹¡ÒÃÅº¢éÍÁÙÅ");if(drop==1){AHref(path);}}
+function confirmDelete(path){var drop = confirm("ï¿½ï¿½Ã´ï¿½×¹ï¿½Ñ¹ï¿½ï¿½ï¿½Åºï¿½ï¿½ï¿½ï¿½ï¿½ï¿½");if(drop==1){AHref(path);}}
+
+
+function showVisit(val){
+	RequestFile("getData.php?op=visit&pop_id="+val,"Visit") ;
+}
 
 function showDiag(val){
-	RequestFile("getData.php?op=diag&vn="+val,"Diagnosis") ;	
+	RequestFile("getData.php?op=diag&vn="+val,"Diagnosis") ;
 }
 
 function showRx(val){
-	RequestFile("getData.php?op=rx&vn="+val,"Rx") ;	
+	RequestFile("getData.php?op=rx&vn="+val,"Rx") ;
 }
 
 function showProced(val){
-	RequestFile("getData.php?op=proced&vn="+val,"Proced") ;		
+	RequestFile("getData.php?op=proced&vn="+val,"Proced") ;
 }
 
 function showCC(val){

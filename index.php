@@ -1,6 +1,5 @@
 <?php
 include("include/config.inc.php") ;
-$session_start();
 ?>
 <html>
 	<head>
@@ -87,21 +86,6 @@ $session_start();
 			</div>
 		</div>
 		<!-- Show Patien Information -->
-	<div class="ui steps" id = "ptinfo">
-		<?php
-				if(null !== $_SESSION("fname")){
-		 ?>
-	  <div class="active step">
-	    <i class="payment icon"></i>
-	    <div class="content">
-	      <div class="title">ประวัติการรับบริการ</div>
-	      <div class="description">นายสุรชัย ศรีอาราม เพศ ชาย อายุ 33 ปี</div>
-	    </div>
-	  </div>
-		<?php
-				}
-		 ?>
-	</div>
 		<!-- End Show Information -->
 
 		</div>

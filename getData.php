@@ -20,10 +20,10 @@ $query = mysqli_query($conn,$sql) ;
 <?php
 	}
 echo "</select>" ;
-$_SESSION['fname'] = $arr['fname'];
-$_SESSION['lname'] = $arr['lname'];
-$_SESSION['sex'] = $arr['sex'];
-$_SESSION['age'] = $arr['age'];
+$_SESSION["fname"] = $arr["fname"];
+$_SESSION["lname"] = $arr["lname"];
+$_SESSION["sex"] = $arr["sex"];
+$_SESSION["age"] = $arr["age"];
 break;
 
 case "diag":

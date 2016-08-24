@@ -1,5 +1,7 @@
 <?php
 include('include/config.inc.php') ;
+//require_once("function.php");
+//$obj=new ConnDB();
 $op = $_GET['op'] ;
 //$_GET['vn'] = 554491 ;
 switch($op){
@@ -8,22 +10,23 @@ case "visit":
 $sql = "select pt.fname,pt.lname,if(pt.male =1, 'ชาย','หญิง') as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age,ovst.vn,ovst.vstdttm
 from ovst inner join ovstdx on ovst.vn = ovstdx.vn
 inner join pt on ovst.hn = pt.hn
-where pt.pop_id = ".$_GET['pop_id']."
+where pt.pop_id = '5340400060084'
 group by ovst.vn order by ovst.vstdttm desc"  ;
-$query = mysqli_query($conn,$sql) ;
+
+//where pt.pop_id = ".$_GET['pop_id']."
+//$query = $obj->getFetch($sql) ;
+
+$query = mysqli_query($conn,$sql);
 ?>
 <select name="visitdate" multiple="multiple" style="width:150px;height:100%;overflow-y:hidden" onchange="showDiag(this.value)">
 <?php
+//while($arr=$query->fetch_object()){
 	while($arr = mysqli_fetch_array($query)){
 ?>
 		<option value="<?php echo $arr['vn'] ; ?>"><?php echo $arr['vstdttm'] ; ?></option>
 <?php
 	}
 echo "</select>" ;
-$_SESSION["fname"] = $arr["fname"];
-$_SESSION["lname"] = $arr["lname"];
-$_SESSION["sex"] = $arr["sex"];
-$_SESSION["age"] = $arr["age"];
 break;
 
 case "diag":
@@ -101,11 +104,14 @@ while($arr = mysqli_fetch_array($query)){
 <?php
 break;
 case "lab":
-$sql = "select lbbk.labcode,lbbk.ln,lab.labname
+$sql = "select lbbk.labcode,lbbk.ln,lab.labname,lab.dbf
 from lbbk inner join lab on lbbk.labcode = lab.labcode where lbbk.vn = ".$_GET['vn'] ;
 $query = mysqli_query($conn,$sql) ;
+$i=1;
 while($arr = mysqli_fetch_array($query)){
-	echo $arr['labname']."<br>" ;
+	//echo "<a href='#myModal' data-toggle='modal' data-lab-ln=".$arr['ln']." data-lab-code=".$arr['labcode']." data-target='#view-modal'>".$arr['labname']."</a><br>" ;
+	echo "<a href='#' class='SendButton' data-id='".$arr['ln'].",".$arr['labcode'].",".$arr['labname'].",".$arr['dbf']."' data-toggle='modal' data-target='#MyModal'>".$arr['labname']."</a><br>";
+  $i = $i+1;
 }
 ?>
 <?php

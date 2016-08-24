@@ -1,4 +1,4 @@
-<?php
+<?php //session_start();
 include("include/config.inc.php") ;
 ?>
 <html>
@@ -10,10 +10,30 @@ include("include/config.inc.php") ;
   <link rel="stylesheet" type="text/css" href="dist/semantic.css">
   <link rel="stylesheet" type="text/css" href="examples/homepage.css">
 	<link rel="stylesheet" href="dist/bootstrap.min.css">
-  <script src="jquery/jquery.js"></script>
-  <script src="dist/semantic.js"></script>
+
+	<script src="jquery/jquery.js"></script>
+	<script src="dist/semantic.js"></script>
+	 <script src="dist/js/bootstrap.js"></script>
+ <script src="dist/js/application.js"></script>
+ <script src="dist/js/tooltip.js"></script>
   <script src="examples/homepage.js"></script>
   <script src="ajax.js"></script>
+	<script src="jquery/popup.js"></script>
+
+	<style>
+		.loader
+		{
+			background-image: url(images/ajax-loader.gif);
+			background-repeat: no-repeat;
+			background-position: center;
+			height: 100px;
+		}
+	</style>
+
+
+
+
+
 	</head>
 	<body>
 	<div class="container-fluid">
@@ -87,18 +107,13 @@ include("include/config.inc.php") ;
 		</div>
 		<!-- Show Patien Information -->
 	<div class="ui steps" id = "ptinfo">
-		<?php
-				echo $_SESSION['fname'];
-		 ?>
-		 <!--
 	  <div class="active step">
 	    <i class="payment icon"></i>
 	    <div class="content">
 	      <div class="title">ประวัติการรับบริการ</div>
-	      <div class="description">นายสุรชัย ศรีอาราม เพศ ชาย อายุ 33 ปี</div>
+	      <div class="description"><?php //if(isset($_SESSION['fname'])){echo $_SESSION['fname'];}else{echo $_SESSION['fname'];}?> ศรีอาราม เพศ ชาย อายุ 33 ปี</div>
 	    </div>
 	  </div>
-	-->
 	</div>
 		<!-- End Show Information -->
 
@@ -177,5 +192,56 @@ include("include/config.inc.php") ;
   	</div>
   	<!-- end grid -->
 	</div>
+
+
+	<div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+  <div class="modal-dialog modal-lg">
+  <div class="modal-content" id="MyContent">
+
+  </div>
+  </div>
+</div>
+
+
+<script>
+$('body').on('click', '.SendButton', function(){
+
+
+		var Val = $(this).attr('data-id');
+		$.ajax({url:"showcontent.php?Val="+Val,cache:false,success:function(result){
+		 	$("#MyContent").html(result);
+		}});
+
+
+	});
+</script>
+<!--
+<script>
+$(document).on('click','.SendButton',function(e){
+	e.preventDefault();
+	$(".modal-body").html('');
+	$(".modal-body").addClass('loader');
+	$("#MyContent").modal('show');
+})
+</script>
+-->
+    <!--
+    	<div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                        <h4 class="modal-title" id="myModalLabel">ผลแลบ</h4>
+                    </div>
+                    <div class="modal-body view-content">
+                        ทดสอบ
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิดหน้าต่าง</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    -->
 	</body>
 </html>

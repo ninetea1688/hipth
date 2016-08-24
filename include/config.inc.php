@@ -1,4 +1,5 @@
 <?php
+extract($_POST);extract($_GET);extract($_REQUEST);//extract($_SESSION);
  $host = "localhost" ;
   $user = "root" ;
   $pass = "212224" ;
@@ -8,5 +9,5 @@
   mysqli_query($conn,"SET character_set_results=utf8");
   mysqli_query($conn,"SET character_set_client=utf8");
   mysqli_query($conn,"SET character_set_connection=utf8");
-  mysqli_select_db($conn,$db) ; 
+  mysqli_select_db($conn,$db) ;
  ?>

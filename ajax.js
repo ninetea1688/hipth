@@ -5,6 +5,10 @@ function RequestFile(strRequest, strDiv) {createXMLHttpRequest();xmlHttp.onready
 function AHref(url){window.location.replace(url);}
 function confirmDelete(path){var drop = confirm("��ô�׹�ѹ���ź������");if(drop==1){AHref(path);}}
 
+function showInfo(val){
+	RequestFile("getData.php?op=showinfo&pop_id="+val,"showInfo") ;
+}
+
 function showVisit(val){
 	RequestFile("getData.php?op=visit&pop_id="+val,"Visit") ;
 }

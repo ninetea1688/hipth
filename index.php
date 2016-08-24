@@ -82,7 +82,7 @@ include("include/config.inc.php") ;
 				<div class="col-md-4">
 					<div class="field ui action left icon input labeled">
 						<i class="search icon"></i>
-							<input type="text" name="name" placeholder="ระบุชื่อ ..." disabled>
+							<input type="text" name="name" placeholder="ระบุชื่อ ..." id="fname" disabled>
 							<a class="ui label">
 								ระบุชื่อ  ......
 							</a>
@@ -91,7 +91,7 @@ include("include/config.inc.php") ;
 				<div class="col-md-4">
 					<div class="field ui action left icon input labeled">
 						<i class="search icon"></i>
-							<input type="text" name="lname" placeholder="ระบุนามสกุล.." disabled />
+							<input type="text" name="lname" placeholder="ระบุนามสกุล.." id="lname" disabled />
 							<a class="ui label">
 								ระบุนามสกุล..
 							</a>
@@ -102,18 +102,12 @@ include("include/config.inc.php") ;
 		<p>
 		<div class="row">
 		  <div class="col-md-6 col-md-offset-3">
-				<button type="submit" class="btn btn-info btn-block" onclick="showVisit(pop_id.value)">ค้นหาประวัติ</button>
+				<button type="submit" class="btn btn-info btn-block" onclick="showInfo(pop_id.value)">ค้นหาประวัติ</button>
 			</div>
 		</div>
 		<!-- Show Patien Information -->
-	<div class="ui steps" id = "ptinfo">
-	  <div class="active step">
-	    <i class="payment icon"></i>
-	    <div class="content">
-	      <div class="title">ประวัติการรับบริการ</div>
-	      <div class="description"><?php //if(isset($_SESSION['fname'])){echo $_SESSION['fname'];}else{echo $_SESSION['fname'];}?> ศรีอาราม เพศ ชาย อายุ 33 ปี</div>
-	    </div>
-	  </div>
+	<div class="ui steps" id = "showInfo">
+
 	</div>
 		<!-- End Show Information -->
 

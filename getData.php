@@ -7,20 +7,26 @@ $op = $_GET['op'] ;
 switch($op){
 
 case "showinfo":
-	$sql = "select pt.pop_id,pt.fname,pt.lname,if(pt.male =1, 'ชาย','หญิง') as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
-	 from pt where pt.pop_id = ".$_GET['pop_id'] ;
-	 $query = mysqli_query($conn,$sql);
-	 $arr = mysqli_fetch_array($query) ;
+	//$sql = "select pt.pop_id,pt.fname,pt.lname,if(pt.male =1, 'ชาย','หญิง') as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
+	// from pt where pt.pop_id = ".$_GET['pop_id'] ;
+	 $stmt = mysqli_prepare($conn,'select pt.pop_id,pt.fname,pt.lname,if(pt.male =1, "ชาย","หญิง") as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
+ 	 from pt where pt.pop_id = ?') ;
+	 mysqli_stmt_bind_param($stmt,"i",$_GET['pop_id']);
+	 mysqli_stmt_execute($stmt);
+	 mysqli_stmt_bind_result($stmt,$pop_id,$fname,$lname,$sex,$age);
+	 mysqli_stmt_fetch($stmt);
+//	 $query = mysqli_query($conn,$sql);
+//	 $arr = mysqli_fetch_array($query) ;
 
 	 echo "<div class='active step'>" ;
 	 echo "<i class='payment icon'></i>";
 	 echo "<div class='content'>";
 	 echo "<div class='title'>ประวัติการรับบริการ</div>" ;
-	 echo "<div class='description'> ชื่อ :: ".$arr['fname']."  ".$arr['lname']." เพศ " .$arr['sex']." อายุ ".$arr['age']." ปี</div>" ;
+	 echo "<div class='description'> ชื่อ :: ".$fname."  ".$lname." เพศ " .$sex." อายุ ".$age." ปี</div>" ;
 	 echo "</div>";
 	 echo "</div>";
 ?>
-<iframe onload="showVisit(<?php echo $arr['pop_id'] ; ?>)" frameborder='0' width='0' height='0'></iframe>
+<iframe onload="showVisit(<?php echo $pop_id; ?>)" frameborder='0' width='0' height='0'></iframe>
 <?php
 
 break;
@@ -51,10 +57,17 @@ echo "</select>" ;
 break;
 
 case "diag":
-$sql = "select * from ovstdx where ovstdx.vn = ".$_GET['vn'] ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
-while($arr = mysqli_fetch_array($query)){
-	echo $arr['icd10'].' - '.$arr['icd10name']."<br>" ;
+$stmt = mysqli_prepare($conn,'select icd10,icd10name from ovstdx where ovstdx.vn = ?');
+//$sql = "select * from ovstdx where ovstdx.vn = ".$_GET['vn'] ;
+
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$icd10,$icd10name);
+//mysqli_stmt_fetch($stmt);
+
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+while(mysqli_stmt_fetch($stmt)){
+	echo $icd10.' - '.$icd10name."<br>" ;
 }
 ?>
 

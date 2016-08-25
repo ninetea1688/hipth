@@ -66,6 +66,34 @@ echo "</select>" ;
 break;
 
 case "diag":
+//create log with what user see patient visit
+function GetClientMac(){
+    $macAddr=false;
+    $arp=`arp -n`;
+    $lines=explode("\n", $arp);
+
+    foreach($lines as $line){
+        $cols=preg_split('/\s+/', trim($line));
+
+        if ($cols[0]==$_SERVER['REMOTE_ADDR']){
+            $macAddr=$cols[2];
+        }
+    }
+
+    return $macAddr;
+}
+
+$user_id = '001';
+$user_addr = $_SERVER["REMOTE_ADDR"];
+$user_agent = $_SERVER["HTTP_USER_AGENT"];
+$user_mac = GetClientMac();
+//$viewdate =
+
+$stmt = mysqli_prepare($conn,'insert into view_pt_log (user_id,viewdate,vn,user_addr,user_agent,user_mac) values (?,NOW(),?,?,?,?)') ;
+mysqli_stmt_bind_param($stmt,'iisss',$user_id,$_GET['vn'],$user_addr,$user_agent,$user_mac);
+mysqli_stmt_execute($stmt);
+
+
 $stmt = mysqli_prepare($conn,'select icd10,icd10name from ovstdx where ovstdx.vn = ?');
 //$sql = "select * from ovstdx where ovstdx.vn = ".$_GET['vn'] ;
 

@@ -34,23 +34,32 @@ break;
 
 <?php
 case "visit":
-$sql = "select ovst.vn,ovst.vstdttm
-from ovst inner join ovstdx on ovst.vn = ovstdx.vn
-inner join pt on ovst.hn = pt.hn
-where pt.pop_id = ".$_GET['pop_id']."
-group by ovst.vn order by ovst.vstdttm desc"  ;
-
+//$sql = "select ovst.vn,ovst.vstdttm
+//from ovst inner join ovstdx on ovst.vn = ovstdx.vn
+//inner join pt on ovst.hn = pt.hn
+//where pt.pop_id = ".$_GET['pop_id']."
+//group by ovst.vn order by ovst.vstdttm desc"  ;
 //where pt.pop_id = ".$_GET['pop_id']."
 //$query = $obj->getFetch($sql) ;
 
-$query = mysqli_query($conn,$sql);
+$stmt = mysqli_prepare($conn,'select ovst.vn,ovst.vstdttm
+from ovst inner join ovstdx on ovst.vn = ovstdx.vn
+inner join pt on ovst.hn = pt.hn
+where pt.pop_id = ?
+group by ovst.vn order by ovst.vstdttm desc');
+
+mysqli_stmt_bind_param($stmt,"i",$_GET['pop_id']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$vn,$vstdttm);
+
+//$query = mysqli_query($conn,$sql);
 ?>
 <select name="visitdate" multiple="multiple" style="width:150px;height:100%;overflow-y:hidden" onchange="showDiag(this.value)">
 <?php
 //while($arr=$query->fetch_object()){
-	while($arr = mysqli_fetch_array($query)){
+	while(mysqli_stmt_fetch($stmt)){
 ?>
-		<option value="<?php echo $arr['vn'] ; ?>"><?php echo $arr['vstdttm'] ; ?></option>
+		<option value="<?php echo $vn ; ?>"><?php echo $vstdttm ; ?></option>
 <?php
 	}
 echo "</select>" ;
@@ -77,13 +86,17 @@ while(mysqli_stmt_fetch($stmt)){
 break;
 
 case "rx":
-	$sql = "select * from prscdt inner join prsc on prsc.prscno = prscdt.prscno where prsc.vn = ".$_GET['vn'] ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+	//$sql = "select * from prscdt inner join prsc on prsc.prscno = prscdt.prscno where prsc.vn = ".$_GET['vn'] ;
+	$stmt = mysqli_prepare($conn,'select prsc.vn,prscdt.nameprscdt,prscdt.qty,prscdt.medusage from prscdt inner join prsc on prsc.prscno = prscdt.prscno where prsc.vn = ? ');
+	mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+	mysqli_stmt_execute($stmt);
+	mysqli_stmt_bind_result($stmt,$vn,$nameprscdt,$qty,$medusage);
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
 echo "<table class='ui table'>" ;
 echo "<tr><td>ชื่อยา</td><td>จำนวน</td><td>Medusage</td></tr>" ;
-while($arr = mysqli_fetch_array($query)){
+while(mysqli_stmt_fetch($stmt)){
 	echo "<tr>" ;
-	echo '<td>'.$arr['nameprscdt'].'</td><td>'.$arr['qty'].'</td><td>'.$arr['medusage']."</td></tr>" ;
+	echo '<td>'.$nameprscdt.'</td><td>'.$qty.'</td><td>'.$medusage."</td></tr>" ;
 }
 echo "</table>" ;
 ?>
@@ -92,10 +105,14 @@ echo "</table>" ;
 break;
 
 case "proced":
-$sql = "select * from oprt where oprt.vn = ".$_GET['vn'] ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
-while($arr = mysqli_fetch_array($query)){
-	echo $arr['icd9cm'].' - '.$arr['icd9name']."<br>" ;
+$stmt = mysqli_prepare($conn,'select vn,icd9cm,icd9name from oprt where oprt.vn = ?') ;
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$vn,$icd9cm,$icd9name);
+//$sql = "select * from oprt where oprt.vn = ".$_GET['vn'] ;
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+while(mysqli_stmt_fetch($stmt)){
+	echo $icd9cm.' - '.$icd9name."<br>" ;
 }
 ?>
 <iframe onload="showCC(<?php echo $_GET['vn'] ; ?>)" frameborder='0' width='0' height='0'></iframe>
@@ -103,11 +120,16 @@ while($arr = mysqli_fetch_array($query)){
 break;
 
 case "cc":
-$sql = "select group_concat(symptom) as cc
-from symptm where vn =".$_GET['vn']." group by vn" ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
-while($arr = mysqli_fetch_array($query)){
-	echo $arr['cc']."<br>" ;
+$stmt = mysqli_prepare($conn,'select group_concat(symptom) as cc
+from symptm where vn = ? group by vn') ;
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$cc);
+//$sql = "select group_concat(symptom) as cc
+//from symptm where vn =".$_GET['vn']." group by vn" ;
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+while(mysqli_stmt_fetch($stmt)){
+	echo $cc."<br>" ;
 }
 ?>
 
@@ -116,22 +138,34 @@ while($arr = mysqli_fetch_array($query)){
 break;
 
 case "pi":
-$sql = "select group_concat(pillness) as pi
-from pillness where vn =".$_GET['vn']." group by vn" ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
-while($arr = mysqli_fetch_array($query)){
-	echo $arr['pi']."<br>" ;
+$stmt = mysqli_prepare($conn,'select group_concat(pillness) as pi
+from pillness where vn  = ? group by vn') ;
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$pi);
+
+//$sql = "select group_concat(pillness) as pi
+//from pillness where vn =".$_GET['vn']." group by vn" ;
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+while(mysqli_stmt_fetch($stmt)){
+	echo $pi."<br>" ;
 }
 ?>
 <iframe onload="showPE(<?php echo $_GET['vn'] ; ?>)" frameborder='0' width='0' height='0'></iframe>
 <?php
 break;
 case "pe":
-$sql = "select sign
-from sign where vn =".$_GET['vn'] ;
-$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
-while($arr = mysqli_fetch_array($query)){
-	echo $arr['sign']."<br>" ;
+$stmt = mysqli_prepare($conn,'select sign
+from sign where vn = ?') ;
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$sign);
+
+//$sql = "select sign
+//from sign where vn =".$_GET['vn'] ;
+//$query = mysqli_query($conn,$sql) or die(mysql_error()) ;
+while(mysqli_stmt_fetch($stmt)){
+	echo $sign."<br>" ;
 }
 ?>
 
@@ -139,13 +173,19 @@ while($arr = mysqli_fetch_array($query)){
 <?php
 break;
 case "lab":
-$sql = "select lbbk.labcode,lbbk.ln,lab.labname,lab.dbf
-from lbbk inner join lab on lbbk.labcode = lab.labcode where lbbk.vn = ".$_GET['vn'] ;
-$query = mysqli_query($conn,$sql) ;
+$stmt = mysqli_prepare($conn,'select lbbk.labcode,lbbk.ln,lab.labname,lab.dbf
+from lbbk inner join lab on lbbk.labcode = lab.labcode where lbbk.vn = ?') ;
+mysqli_stmt_bind_param($stmt,"i",$_GET['vn']);
+mysqli_stmt_execute($stmt);
+mysqli_stmt_bind_result($stmt,$labcode,$ln,$labname,$dbf);
+
+//$sql = "select lbbk.labcode,lbbk.ln,lab.labname,lab.dbf
+//from lbbk inner join lab on lbbk.labcode = lab.labcode where lbbk.vn = ".$_GET['vn'] ;
+//$query = mysqli_query($conn,$sql) ;
 $i=1;
-while($arr = mysqli_fetch_array($query)){
+while(mysqli_stmt_fetch($stmt)){
 	//echo "<a href='#myModal' data-toggle='modal' data-lab-ln=".$arr['ln']." data-lab-code=".$arr['labcode']." data-target='#view-modal'>".$arr['labname']."</a><br>" ;
-	echo "<a href='#' class='SendButton' data-id='".$arr['ln'].",".$arr['labcode'].",".$arr['labname'].",".$arr['dbf']."' data-toggle='modal' data-target='#MyModal'>".$arr['labname']."</a><br>";
+	echo "<a href='#' class='SendButton' data-id='".$ln.",".$labcode.",".$labname.",".$dbf."' data-toggle='modal' data-target='#MyModal'>".$labname."</a><br>";
   $i = $i+1;
 }
 ?>

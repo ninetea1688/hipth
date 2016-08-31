@@ -1,4 +1,8 @@
 <?php
+if(!isset($_SESSION['user_session']))
+{
+	header("Location: index.php");
+}
 $exp=explode(",",$_GET['Val']);
 include('include/config.inc.php') ;
 

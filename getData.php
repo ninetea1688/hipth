@@ -1,4 +1,11 @@
 <?php
+session_start();
+
+if(!isset($_SESSION['user_session']))
+{
+	header("Location: index.php");
+}
+
 include('include/config.inc.php') ;
 //require_once("function.php");
 //$obj=new ConnDB();
@@ -83,7 +90,7 @@ function GetClientMac(){
     return $macAddr;
 }
 
-$user_id = '001';
+$user_id = $_SESSION['user_session'] ;
 $user_addr = $_SERVER["REMOTE_ADDR"];
 $user_agent = $_SERVER["HTTP_USER_AGENT"];
 $user_mac = GetClientMac();

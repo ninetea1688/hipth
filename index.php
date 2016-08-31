@@ -1,241 +1,78 @@
-<?php //session_start();
-include("include/config.inc.php") ;
+<?php
+
+/*
+Author: Pradeep Khodke
+URL: http://www.codingcage.com/
+*/
+
+
+session_start();
+
+if(isset($_SESSION['user_session'])!="")
+{
+	header("Location: main.php");
+}
+
 ?>
-<html>
-	<head>
-		<title>
-			ระบบค้นหาประวัติผู้ป่วยออนไลน์ HI PTH System
-		</title>
-	<meta charset="utf8">
-  <link rel="stylesheet" type="text/css" href="dist/semantic.css">
-  <link rel="stylesheet" type="text/css" href="examples/homepage.css">
-	<link rel="stylesheet" href="dist/bootstrap.min.css">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>ระบบติดตามการรักษาผู้ป่วย DMS</title>
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" media="screen">
+<script type="text/javascript" src="jquery-1.11.3-jquery.min.js"></script>
+  <link rel="stylesheet" type="text/css" href="../dist/components/header.css">
+<script type="text/javascript" src="validation.min.js"></script>
+<link href="style.css" rel="stylesheet" type="text/css" media="screen">
+<script type="text/javascript" src="script.js"></script>
 
-	<script src="jquery/jquery.js"></script>
-	<script src="dist/semantic.js"></script>
-	 <script src="dist/js/bootstrap.js"></script>
- <script src="dist/js/application.js"></script>
- <script src="dist/js/tooltip.js"></script>
-  <script src="examples/homepage.js"></script>
-  <script src="ajax.js"></script>
-	<script src="jquery/popup.js"></script>
+</head>
 
-	<style>
-		.loader
-		{
-			background-image: url(images/ajax-loader.gif);
-			background-repeat: no-repeat;
-			background-position: center;
-			height: 100px;
-		}
-	</style>
+<body>
+
+<div class="signin-form">
+
+	<div class="container">
 
 
+       <form class="form-signin" method="post" id="login-form">
 
+        <h2 class="form-signin-heading">
+          <div class="content" align="center">
+            <img src="images/moph-logo.png" class="image" height="64">
+          กรุณายืนยันตัวบุคคล <br>เพื่อตรวจสอบสิทธิ์การใช้งาน
+        </div>
+        </h2><hr />
 
+        <div id="error">
+        <!-- error will be shown here ! -->
+        </div>
 
-	</head>
-	<body>
-	<div class="container-fluid">
-	<!--start menu -->
-		<div class="ui orange inverted menu">
-		  <a class="active item">
-		    <i class="home icon"></i> หน้าหลัก
-		  </a>
-		  <a class="item">
-		    <i class="mail icon"></i> ดูประวัติเก่า
-		  </a>
-		    <div class="ui dropdown item">
-			    ระบบรายงาน <i class="dropdown icon"></i>
-			    <div class="menu">
-			      <div class="item">รายงานการเข้าดูประวัติ</div>
-			      <div class="item">ประวัติการค้นประวัติผู้ป่วย</div>
-			      <div class="item">รายงานวิเคราะห์การเข้าถึงข้อมูล</div>
-			    </div>
-  			</div>
-		  <a class="item">
-		    <i class="user icon"></i> ออกระบบ
-		  </a>
-    	</div>
-    <!-- end menu -->
-	<!-- start search form -->
-	<div class="panel panel-info">
-		<div class="panel-heading">
-			<strong>ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล</strong>
-		</div>
-    <div class="ui small form">
-			<div class="panel-body">
-			<div class="row">
-				<!-- <div class="field">
-					<i class="search icon"></i>
-						ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล
-					</div> -->
-					<div class="col-md-4">
-						<div class="field ui action left icon input labeled">
-							<i class="search icon"></i>
-								<input type="text" name="cid" placeholder="ระบุ  CID ..." id="pop_id">
-								<a class="ui label">
-									ระบ CID  ......
-								</a>
-						</div>
-					</div>
-				<div class="col-md-4">
-					<div class="field ui action left icon input labeled">
-						<i class="search icon"></i>
-							<input type="text" name="name" placeholder="ระบุชื่อ ..." id="fname" disabled>
-							<a class="ui label">
-								ระบุชื่อ  ......
-							</a>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<div class="field ui action left icon input labeled">
-						<i class="search icon"></i>
-							<input type="text" name="lname" placeholder="ระบุนามสกุล.." id="lname" disabled />
-							<a class="ui label">
-								ระบุนามสกุล..
-							</a>
-					</div>
-				</div>
+        <div class="form-group">
+        <input type="email" class="form-control" placeholder="อีเมลล์" name="user_email" id="user_email" />
+        <span id="check-e"></span>
+        </div>
 
-		</div>
-		<p>
-		<div class="row">
-		  <div class="col-md-6 col-md-offset-3">
-				<button type="submit" class="btn btn-info btn-block" onclick="showInfo(pop_id.value)">ค้นหาประวัติ</button>
-			</div>
-		</div>
-		<!-- Show Patien Information -->
-	<div class="ui steps" id = "showInfo">
+        <div class="form-group">
+        <input type="password" class="form-control" placeholder="รหัสผ่าน" name="password" id="password" />
+        </div>
 
-	</div>
-		<!-- End Show Information -->
+     	<hr />
 
-		</div>
-		</div>
-	</div>
-	<!-- end search form -->
-	<!-- start grid -->
-	<div class="ui stackable two column grid">
-	    <div class="two wide column"> <!-- start left grid -->
-	    	<!-- start select box -->
-				<div class="ui form">
-					<div id="Visit" class="field">
-					 </div>
-				</div>
-	    	<!-- end select box -->
-	    </div> <!-- end left grid -->
-	    <div class="fourteen wide column" > <!-- start rigth grid -->
-	 		<div class="ui three column grid">
-			    <div class="column">
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<<a class="ui teal ribbon label">C.C.</a>
-  							<div id="CC"></div>
-						</div>
-			    	</div>
-			    	<br>
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui teal ribbon label">Present illness</a>
-  							<div id="PI"></div>
-						</div>
-			    	</div>
-			    	<br>
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui teal ribbon label">P.E.</a>
-  							<div id="PE"></div>
-						</div>
-			    	</div>
-			    </div>
-			    <div class="column">
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui red ribbon label">Diagnosis</a>
-  							<div id="Diagnosis"></div>
-						</div>
-			    	</div>
-			    	<br>
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui teal ribbon label">Procedure</a>
-  							<div id="Proced">
-  							</div>
-						</div>
-			    	</div>
-			    	<br>
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui red ribbon label">LAB</a>
-  							<div id="LAB">
-  							</div>
-						</div>
-			    	</div>
-			    </div>
-			    <div class="column">
-			    	<div class="column">
-			    		<div class="ui segment">
-  							<a class="ui red ribbon label" style="hight:100%">R.X.</a>
-  							<div id="Rx"></div>
-						</div>
-			    	</div>
-			    </div>
-  			</div>
-	    </div> <!-- end rigth grid -->
-  	</div>
-  	<!-- end grid -->
-	</div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-default" name="btn-login" id="btn-login">
+    		<span class="glyphicon glyphicon-log-in"></span> &nbsp; เข้าสู่ระบบ
+			</button>
+        </div>
 
+      </form>
 
-	<div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-  <div class="modal-content" id="MyContent">
+    </div
 
-  </div>
-  </div>
 </div>
 
+<script src="bootstrap/js/bootstrap.min.js"></script>
 
-<script>
-$('body').on('click', '.SendButton', function(){
-
-
-		var Val = $(this).attr('data-id');
-		$.ajax({url:"showcontent.php?Val="+Val,cache:false,success:function(result){
-		 	$("#MyContent").html(result);
-		}});
-
-
-	});
-</script>
-<!--
-<script>
-$(document).on('click','.SendButton',function(e){
-	e.preventDefault();
-	$(".modal-body").html('');
-	$(".modal-body").addClass('loader');
-	$("#MyContent").modal('show');
-})
-</script>
--->
-    <!--
-    	<div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">ผลแลบ</h4>
-                    </div>
-                    <div class="modal-body view-content">
-                        ทดสอบ
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิดหน้าต่าง</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
-	</body>
+</body>
 </html>

@@ -1,0 +1,45 @@
+<html>
+<head>
+  <title>
+    test modal
+  </title>
+  	<link rel="stylesheet" href="dist/bootstrap.min.css">
+    <script src="jquery/jquery.js"></script>
+     <script src="dist/js/bootstrap.js"></script>
+
+
+</head>
+<body>
+<a href="#" id="SendButton1" data-id="'123','456'" data-toggle="modal" data-target="#MyModal">link1</a>
+<br>
+<a href="#" id="SendButton2" data-id="'789','012'" data-toggle="modal" data-target="#MyModal">link2</a>
+
+<script>
+$( document ).ready(function() {
+$('#SendButton1').click(function(){
+var Val = $(this).attr('data-id');
+$.ajax({url:"showcontent.php?Val="+Val,cache:false,success:function(result){
+$("#MyContent").html(result);
+}});
+});
+});
+
+$( document ).ready(function() {
+$('#SendButton2').click(function(){
+var Val = $(this).attr('data-id');
+$.ajax({url:"showcontent.php?Val="+Val,cache:false,success:function(result){
+$("#MyContent").html(result);
+}});
+});
+});
+</script>
+<div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+<div class="modal-dialog modal-lg">
+<div class="modal-content" id="MyContent">
+
+</div>
+</div>
+</div>
+
+</body>
+</html>

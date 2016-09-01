@@ -128,7 +128,6 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 							</a>
 					</div>
 				</div>
-
 		</div>
 		<p>
 		<div class="row">
@@ -139,10 +138,8 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		</div>
 		<!-- Show Patien Information -->
 	<div class="ui steps" id = "showInfo">
-
 	</div>
 		<!-- End Show Information -->
-
 		</div>
 		</div>
 	</form>
@@ -258,7 +255,7 @@ $('.ui.form.segment')
             prompt : 'กรุณาระบุเลข 13 หลัก'
           },
 					{
-            type   : 'exactLength[2]',
+            type   : 'exactLength[13]',
             prompt : 'เลขบัตรประจำตัวต้องไม่น้อยกว่า 13 หลัก'
           }
         ]

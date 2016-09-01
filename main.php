@@ -21,19 +21,26 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		</title>
 	<meta charset="utf8">
   <link rel="stylesheet" type="text/css" href="dist/semantic.css">
+	<!--
   <link rel="stylesheet" type="text/css" href="examples/homepage.css">
+-->
 	<link rel="stylesheet" href="dist/bootstrap.min.css">
+	<!--
 	<link href="sticky-footer.css" rel="stylesheet">
+-->
 
 	<script src="jquery/jquery.js"></script>
 	<script src="dist/semantic.js"></script>
 	 <script src="dist/js/bootstrap.js"></script>
+	 <!--
  <script src="dist/js/application.js"></script>
  <script src="dist/js/tooltip.js"></script>
   <script src="examples/homepage.js"></script>
+-->
   <script src="ajax.js"></script>
+	<!--
 	<script src="jquery/popup.js"></script>
-
+-->
 	<style>
 		.loader
 		{
@@ -83,6 +90,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
     <!-- end menu -->
 	<!-- start search form -->
 	<div class="panel panel-info">
+		<form class="ui form segment">
 		<div class="panel-heading">
 			<strong>ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล</strong>
 		</div>
@@ -96,7 +104,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 					<div class="col-md-4">
 						<div class="field ui action left icon input labeled">
 							<i class="search icon"></i>
-								<input type="text" name="cid" placeholder="ระบุ  CID ..." id="pop_id">
+								<input type="text" name="pop_id" placeholder="ระบุ  CID ..." id="pop_id">
 								<a class="ui label">
 									ระบ CID  ......
 								</a>
@@ -105,7 +113,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 				<div class="col-md-4">
 					<div class="field ui action left icon input labeled">
 						<i class="search icon"></i>
-							<input type="text" name="name" placeholder="ระบุชื่อ ..." id="fname" disabled>
+							<input type="text" name="fname" placeholder="ระบุชื่อ ..." id="fname" disabled>
 							<a class="ui label">
 								ระบุชื่อ  ......
 							</a>
@@ -125,7 +133,8 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		<p>
 		<div class="row">
 		  <div class="col-md-6 col-md-offset-3">
-				<button type="submit" class="btn btn-info btn-block" onclick="showInfo(pop_id.value)">ค้นหาประวัติ</button>
+				<div class="ui primary submit button" onclick="showInfo(pop_id.value)">ค้นหาประวัติ</div>
+				<div class="ui error message"></div>
 			</div>
 		</div>
 		<!-- Show Patien Information -->
@@ -136,13 +145,14 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
 		</div>
 		</div>
+	</form>
 	</div>
 	<!-- end search form -->
 	<!-- start grid -->
 	<div class="ui stackable two column grid">
 	    <div class="two wide column"> <!-- start left grid -->
 	    	<!-- start select box -->
-				<div class="ui form">
+				<div class="ui">
 					<div id="Visit" class="field">
 					 </div>
 				</div>
@@ -234,6 +244,28 @@ $('body').on('click', '.SendButton', function(){
 
 
 	});
+</script>
+
+<script>
+$('.ui.form.segment')
+  .form({
+    fields: {
+      pop_id: {
+        identifier: 'pop_id',
+        rules: [
+          {
+            type   : 'empty',
+            prompt : 'กรุณาระบุเลข 13 หลัก'
+          },
+					{
+            type   : 'exactLength[2]',
+            prompt : 'เลขบัตรประจำตัวต้องไม่น้อยกว่า 13 หลัก'
+          }
+        ]
+      }
+    }
+  })
+;
 </script>
 <!--
 <script>

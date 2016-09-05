@@ -90,7 +90,6 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
     <!-- end menu -->
 	<!-- start search form -->
 	<div class="panel panel-info">
-		<form class="ui form segment">
 		<div class="panel-heading">
 			<strong>ค้นหาผู้ป่วยจากเลขที่บัตรประชาชน หรือจาก ชื่อ หรือจาก นามสกุล</strong>
 		</div>
@@ -104,7 +103,7 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 					<div class="col-md-4">
 						<div class="field ui action left icon input labeled">
 							<i class="search icon"></i>
-								<input type="text" name="pop_id" placeholder="ระบุ  CID ..." id="pop_id">
+								<input type="text" name="pop_id" placeholder="ระบุ  CID ..." id="pop_id" required>
 								<a class="ui label">
 									ระบ CID  ......
 								</a>
@@ -132,8 +131,11 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		<p>
 		<div class="row">
 		  <div class="col-md-6 col-md-offset-3">
+
 				<div class="ui primary submit button" onclick="showInfo(pop_id.value)">ค้นหาประวัติ</div>
-				<div class="ui error message"></div>
+				<div class="ui error message" id = 'checkerror'>
+							<p> พบข้อผิดพลาด :: ไม่ได้ระบุเลข 13 หรือ เลข 13 หลักไม่ถูกต้อง </p>
+				</div>
 			</div>
 		</div>
 		<!-- Show Patien Information -->
@@ -142,7 +144,6 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		<!-- End Show Information -->
 		</div>
 		</div>
-	</form>
 	</div>
 	<!-- end search form -->
 	<!-- start grid -->
@@ -253,10 +254,6 @@ $('.ui.form.segment')
           {
             type   : 'empty',
             prompt : 'กรุณาระบุเลข 13 หลัก'
-          },
-					{
-            type   : 'exactLength[13]',
-            prompt : 'เลขบัตรประจำตัวต้องไม่น้อยกว่า 13 หลัก'
           }
         ]
       }
@@ -264,34 +261,6 @@ $('.ui.form.segment')
   })
 ;
 </script>
-<!--
-<script>
-$(document).on('click','.SendButton',function(e){
-	e.preventDefault();
-	$(".modal-body").html('');
-	$(".modal-body").addClass('loader');
-	$("#MyContent").modal('show');
-})
-</script>
--->
-    <!--
-    	<div id="view-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                        <h4 class="modal-title" id="myModalLabel">ผลแลบ</h4>
-                    </div>
-                    <div class="modal-body view-content">
-                        ทดสอบ
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">ปิดหน้าต่าง</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    -->
 		<div>
 			<p>
 		</div>

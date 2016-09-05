@@ -3,10 +3,31 @@ function createXMLHttpRequest(){if(window.ActiveXObject){xmlHttp=new ActiveXObje
 function RequestFile(strRequest, strDiv) {createXMLHttpRequest();xmlHttp.onreadystatechange=function(){if(xmlHttp.readyState==4){if(xmlHttp.status==200) {document.getElementById(strDiv).innerHTML=xmlHttp.responseText;}}};xmlHttp.open("GET", strRequest,true);xmlHttp.send(null);}
 
 function AHref(url){window.location.replace(url);}
-function confirmDelete(path){var drop = confirm("��ô�׹�ѹ���ź������");if(drop==1){AHref(path);}}
+
+/*
+function IsValid(val){
+	console.log(val);
+	return true; //(val.length > 0);
+}
+*/
 
 function showInfo(val){
+
+  
+	if(val !='' && val.length == 13){
+
+	$("#checkerror").hide();
 	RequestFile("getData.php?op=showinfo&pop_id="+val,"showInfo") ;
+}else{
+
+	$("#checkerror").show();
+	$("#pop_id").focus();
+}
+
+//if (IsValid(val)) {
+		//console.log("showinfo" + val);
+
+	//}
 }
 
 function showVisit(val){

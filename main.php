@@ -264,10 +264,20 @@ $('.ui.form.segment')
 		<div>
 			<p>
 		</div>
-		<div class="ui inverted vertical footer segment form-page">
+		<!-- <div class="ui inverted vertical footer segment form-page">
 	  <div class="ui container" align="right">
 	    ออกแบบและพัฒนาโดย :: &copy; นายสุรชัย ศรีอาราม ฝ่ายสนับสนุนบริการสุขภาพ โรงพยาบาลเขื่องใน
 	  </div>
-	</div>
+	</div> -->
+<p />
+	<footer class="page-row">
+			<div class="row">
+				<p />
+					<div class="ui container" align="right">
+						<p />
+							<p>Copyright &copy; ออกแบบและพัฒนาโดย :: &copy; นายสุรชัย ศรีอาราม ฝ่ายสนับสนุนบริการสุขภาพ โรงพยาบาลเขื่องใน</p>
+					</div>
+			</div>
+	</footer>
 	</body>
 </html>

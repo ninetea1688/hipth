@@ -1,4 +1,4 @@
-- update first 23-09-201
+- update first 23-09-2016
 - การใช้งานเบื้องต้น และ ติดตั้ง ระบบ hipth ระบบติดตามการรักษา 
 #git clone https://github.com/cybernude/hipth.git
 
@@ -13,7 +13,7 @@
 ให้ทำการ excute sql สองไฟล์นี้ เข้าไปในระบบ 
 
 user เริ่มต้นในระบบคือ
-#username: admin
+#username: admin@admin.com
 #password: 21224
 
 - สามารถสร้างรหัสผ่าน และ เพิ่ม user ได้เอง แบบ manual รหัสผ่าน genered เป็นแบบ md5 ทำไม่เป็น เอารหัสผ่านที่ต้องการไปใส่ไฟล์ test.php ใน  folder โปรแกรมนอกสุด ตรง

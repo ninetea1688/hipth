@@ -32,6 +32,10 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 	<script src="jquery/jquery.js"></script>
 	<script src="dist/semantic.js"></script>
 	 <script src="dist/js/bootstrap.js"></script>
+	 <!-- highcharts -->
+	 <script src="http://code.highcharts.com/highcharts.js"></script>
+<script src="http://code.highcharts.com/modules/exporting.js"></script>
+<!-- end highcharts -->
 	 <!--
  <script src="dist/js/application.js"></script>
  <script src="dist/js/tooltip.js"></script>
@@ -220,18 +224,40 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 
 
 	<div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
-  <div class="modal-dialog modal-lg">
-  <div class="modal-content" id="MyContent">
+  	<div class="modal-dialog modal-lg">
+  		<div class="modal-content" id="MyContent">
 
-  </div>
-  </div>
+  		</div>
+  	</div>
+	</div>
 
+	<div class="modal fade" id="MyModalFBS" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" style="width:100%">
+  	<div class="modal-dialog modal-lg">
+				<div class="modal-content" id="MyFBS">
 
+  			</div>
+  	</div>
+	</div>
 
-</div>
+	<div class="modal fade" id="MyModaleGFR" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg">
+				<div class="modal-content" id="MyeGFR">
+
+				</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="MyModaleSbpDbp" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg">
+				<div class="modal-content" id="MySbpDbp">
+
+				</div>
+		</div>
+	</div>
 
 
 <script>
+//show lab content
 $('body').on('click', '.SendButton', function(){
 
 
@@ -243,6 +269,49 @@ $('body').on('click', '.SendButton', function(){
 
 	});
 </script>
+
+<script>
+//show fbs content
+$('body').on('click', '.FbsButton', function(){
+
+
+		var Val = $(this).attr('data-id');
+		$.ajax({url:"showfbs.php?Val="+Val,cache:false,success:function(result){
+		 	$("#MyFBS").html(result);
+		}});
+
+
+	});
+</script>
+
+<script>
+//show eGFR content
+$('body').on('click', '.eGFRButton', function(){
+
+
+		var Val = $(this).attr('data-id');
+		$.ajax({url:"showegfr.php?Val="+Val,cache:false,success:function(result){
+		 	$("#MyeGFR").html(result);
+		}});
+
+
+	});
+</script>
+
+<script>
+//show SbpDbp content
+$('body').on('click', '.sbpdbpButton', function(){
+
+
+		var Val = $(this).attr('data-id');
+		$.ajax({url:"showsbpdbp.php?Val="+Val,cache:false,success:function(result){
+		 	$("#MySbpDbp").html(result);
+		}});
+
+
+	});
+</script>
+
 
 <script>
 $('.ui.form.segment')

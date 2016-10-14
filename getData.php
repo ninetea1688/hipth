@@ -16,15 +16,14 @@ switch($op){
 case "showinfo":
 	//$sql = "select pt.pop_id,pt.fname,pt.lname,if(pt.male =1, 'ชาย','หญิง') as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
 	// from pt where pt.pop_id = ".$_GET['pop_id'] ;
-	 $stmt = mysqli_prepare($conn,'select pt.pop_id,pt.fname,pt.lname,if(pt.male =1, "ชาย","หญิง") as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
+	 $stmt = mysqli_prepare($conn,'select pt.hn,pt.pop_id,pt.fname,pt.lname,if(pt.male =1, "ชาย","หญิง") as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age
  	 from pt where pt.pop_id = ?') ;
 	 mysqli_stmt_bind_param($stmt,"i",$_GET['pop_id']);
 	 mysqli_stmt_execute($stmt);
-	 mysqli_stmt_bind_result($stmt,$pop_id,$fname,$lname,$sex,$age);
+	 mysqli_stmt_bind_result($stmt,$hn,$pop_id,$fname,$lname,$sex,$age);
 	 mysqli_stmt_fetch($stmt);
 //	 $query = mysqli_query($conn,$sql);
 //	 $arr = mysqli_fetch_array($query) ;
-
 	 echo "<div class='active step'>" ;
 	 echo "<i class='payment icon'></i>";
 	 echo "<div class='content'>";
@@ -32,6 +31,28 @@ case "showinfo":
 	 echo "<div class='description'> ชื่อ :: ".$fname."  ".$lname." เพศ " .$sex." อายุ ".$age." ปี</div>" ;
 	 echo "</div>";
 	 echo "</div>";
+	 //show fbs
+	 echo "<div class='active step'>" ;
+	 echo "<i class='line chart icon'></i>";
+	 echo "<div class='content'>";
+	 echo "<div class='title'><a href='#' class='FbsButton' data-id='".$hn."' data-toggle='modal' data-target='#MyModalFBS'>กราฟค่าระดับ FBS.</a></div>" ;
+	 echo "</div>";
+	 echo "</div>";
+	 //show egfr
+	 echo "<div class='active step'>" ;
+	 echo "<i class='bar chart icon'></i>";
+	 echo "<div class='content'>";
+	 echo "<div class='title'><a href='#' class='eGFRButton' data-id='".$hn."' data-toggle='modal' data-target='#MyModaleGFR'>กราฟค่าระดับ eGFR.</a></div>" ;
+	 echo "</div>";
+	 echo "</div>";
+	 //show sbp/dbp
+	 echo "<div class='active step'>" ;
+	 echo "<i class='heart icon'></i>";
+	 echo "<div class='content'>";
+	 echo "<div class='title'><a href='#' class='sbpdbpButton' data-id='".$hn."' data-toggle='modal' data-target='#MyModaleSbpDbp'>กราฟค่าความดัน</a></div>" ;
+	 echo "</div>";
+	 echo "</div>";
+
 ?>
 <iframe onload="showVisit(<?php echo $pop_id; ?>)" frameborder='0' width='0' height='0'></iframe>
 <?php

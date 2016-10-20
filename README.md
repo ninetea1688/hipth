@@ -1,3 +1,12 @@
+- update 14-10-2016
+เพิ่มกราฟแสดงผล FBS , eGFR, ความดัน (sbp/dbp) 12 visit ล่าสุด
+
+วิธีการ update ท่านที่ใช้ git สั่ง
+#git pull
+
+ท่านที่ทำไม่เป็น ลบอันเดิมทิ้ง โหลดไปทับใหม่
+
+
 - update first 23-09-2016
 - การใช้งานเบื้องต้น และ ติดตั้ง ระบบ hipth ระบบติดตามการรักษา 
 #git clone https://github.com/cybernude/hipth.git

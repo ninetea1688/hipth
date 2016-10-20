@@ -33,8 +33,8 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 	<script src="dist/semantic.js"></script>
 	 <script src="dist/js/bootstrap.js"></script>
 	 <!-- highcharts -->
-	 <script src="http://code.highcharts.com/highcharts.js"></script>
-<script src="http://code.highcharts.com/modules/exporting.js"></script>
+	 <script src="jquery/highcharts.js"></script>
+<script src="jquery/exporting.js"></script>
 <!-- end highcharts -->
 	 <!--
  <script src="dist/js/application.js"></script>

@@ -17,7 +17,7 @@ include('include/config.inc.php') ;
 <?php
 $query = "select date(ovst.vstdttm) as visitdate,visitgfr.gfr
 from ovst inner join visitgfr on ovst.vn = visitgfr.vn
-where ovst.hn = '".$hn."' order by ovst.vstdttm DESC
+where ovst.hn = '".$hn."' order by ovst.vstdttm ASC
 limit 12";
 
 

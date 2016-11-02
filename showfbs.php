@@ -29,8 +29,8 @@ $query = "select date(lbbk.vstdttm) as visitdate,replace(
 	),' ','') as labresult
 from lbbk inner join lfbs on lbbk.ln = lfbs.ln
 inner join lab on lab.labcode = lbbk.labcode
-where lab.labcode = '028' and lbbk.hn = ".$hn." 
-order by lbbk.vstdttm DESC
+where lab.labcode = '028' and lbbk.hn = ".$hn."
+order by lbbk.vstdttm ASC
 limit 12";
 
 // $stmt = mysqli_prepare($conn,'select pt.hn,pt.pop_id,pt.fname,pt.lname,if(pt.male =1, "ชาย","หญิง") as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age

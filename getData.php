@@ -52,6 +52,14 @@ case "showinfo":
 	 echo "<div class='title'><a href='#' class='sbpdbpButton' data-id='".$hn."' data-toggle='modal' data-target='#MyModaleSbpDbp'>กราฟค่าความดัน</a></div>" ;
 	 echo "</div>";
 	 echo "</div>";
+	 //show One Page
+	 echo "<div class='active step'>" ;
+	 echo "<i class='browser icon'></i>";
+	 echo "<div class='content'>";
+	 echo "<div class='title'><a href='#' class='onepageButton' data-id='".$hn."' data-toggle='modal' data-target='#MyModalOnePage'>OnePage Control</a></div>" ;
+	 echo "</div>";
+	 echo "</div>";
+
 
 ?>
 <iframe onload="showVisit(<?php echo $pop_id; ?>)" frameborder='0' width='0' height='0'></iframe>

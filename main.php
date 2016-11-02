@@ -255,6 +255,13 @@ $row=$stmt->fetch(PDO::FETCH_ASSOC);
 		</div>
 	</div>
 
+	<div class="modal fade" id="MyModalOnePage" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+		<div class="modal-dialog modal-lg">
+				<div class="modal-content" id="MyOnePage">
+
+				</div>
+		</div>
+	</div>
 
 <script>
 //show lab content
@@ -306,6 +313,20 @@ $('body').on('click', '.sbpdbpButton', function(){
 		var Val = $(this).attr('data-id');
 		$.ajax({url:"showsbpdbp.php?Val="+Val,cache:false,success:function(result){
 		 	$("#MySbpDbp").html(result);
+		}});
+
+
+	});
+</script>
+
+<script>
+//show OnePage content
+$('body').on('click', '.onepageButton', function(){
+
+
+		var Val = $(this).attr('data-id');
+		$.ajax({url:"showonepage.php?Val="+Val,cache:false,success:function(result){
+		 	$("#MyOnePage").html(result);
 		}});
 
 

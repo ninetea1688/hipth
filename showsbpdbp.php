@@ -19,7 +19,7 @@ $query = "select date(ovst.vstdttm) as visitdate,ovst.sbp,ovst.dbp
 from ovst inner join ovstdx on ovst.vn = ovstdx.vn
 where hn = ".$hn."
 group by ovst.vn
-order by ovst.vstdttm DESC
+order by ovst.vstdttm ASC
 limit 12";
 
 // $stmt = mysqli_prepare($conn,'select pt.hn,pt.pop_id,pt.fname,pt.lname,if(pt.male =1, "ชาย","หญิง") as sex,round(DATEDIFF(CURDATE(),pt.brthdate) / 365.25) as age

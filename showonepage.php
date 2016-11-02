@@ -29,7 +29,7 @@ left join visitgfr on ovst.vn = visitgfr.vn
 left join llchol on lbbk.ln = llchol.ln
 left join ltg on lbbk.ln = ltg.ln
 left join lualbmn on lbbk.ln = lualbmn.ln
-WHERE ovst.hn = '48311' and date(ovst.vstdttm) > '2015-10-01'
+WHERE ovst.hn = ".$hn." and date(ovst.vstdttm) > '2015-10-01'
 GROUP BY ovst.vn
 order by ovst.hn,ovst.vstdttm asc";
 

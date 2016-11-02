@@ -72,12 +72,12 @@ if (!$res_c) {
       <td class="right aligned"><?php echo $row[1]; ?></td>
       <td class="right aligned"><?php echo $row[4]; ?></td>
       <td class="right aligned"><?php echo $row[5]; ?></td>
-			<td class="right aligned"><?php echo $row[6]; ?></td>
-	    <td class="right aligned"><?php echo $row[7]; ?></td>
+			<td class="right aligned"><?php echo $row[6]; ?> / <?php echo $row[7]; ?></td>
 	    <td class="right aligned"><?php echo $row[8]; ?></td>
-			<td class="right aligned"><?php echo $row[9]; ?></td>
-	    <td class="right aligned"><?php echo $row[10]; ?></td>
+	    <td class="right aligned"><?php echo $row[9]; ?></td>
+			<td class="right aligned"><?php echo $row[10]; ?></td>
 	    <td class="right aligned"><?php echo $row[11]; ?></td>
+	    <td class="right aligned"><?php echo $row[12]; ?></td>
     </tr>
 		<?php } ?>
   </tbody>

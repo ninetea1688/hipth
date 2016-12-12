@@ -7,6 +7,7 @@ if(!isset($_SESSION['user_session']))
 $hn=$_GET['Val'];
 include('include/config.inc.php') ;
 ?>
+<div id="printableArea">
 <div class="modal-header success" style="width:100%">
 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 <h4 class="modal-title" id="myModalLabel">ตาราง OnePage Control DM - HN : <?php echo $hn; ?></h4>
@@ -69,7 +70,7 @@ if (!$res_c) {
     ?>
 
     <tr>
-      <td class="right aligned"><?php echo $row[1]; ?></td>
+      <td class="right aligned" nowrap><?php echo $row[1]; ?></td>
       <td class="right aligned"><?php echo $row[4]; ?></td>
       <td class="right aligned"><?php echo $row[5]; ?></td>
 			<td class="right aligned"><?php echo $row[6]; ?> / <?php echo $row[7]; ?></td>
@@ -80,6 +81,61 @@ if (!$res_c) {
 	    <td class="right aligned"><?php echo $row[12]; ?></td>
     </tr>
 		<?php } ?>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
   </tbody>
   <tfoot>
     <tr class="collapsing">
@@ -97,3 +153,5 @@ if (!$res_c) {
   	</tr>
 	</tfoot>
 </table>
+</div>
+<input type="button" onclick="printDiv('printableArea')" value="พิมพ์ One Page" />
